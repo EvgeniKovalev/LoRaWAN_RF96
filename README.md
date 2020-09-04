@@ -12,7 +12,7 @@ receiving is working in LoRaWAN network. This app is using LMIC library original
 
 Please acquire valid device EUI from your LoRaWAN provider or TTN and use it instead of generating your own.
 
-This app shows in practice how to transmit ja receive message in LoRaWAN network using 
+This app shows in practice how to transmit and receive message in LoRaWAN network using 
 very common platform such as Raspberry Pi and a common LoRa radio modem that is sold for 
 controlling small robots and such. 
 
@@ -29,15 +29,28 @@ Common applications could be in agriculture, construction, municipal sector, you
 1. Install BCM2835 driver for LoRa modem 
 
 ```
-	 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.52.tar.gz
-	 tar zxvf bcm2835*
-	 cd bcm2835*
-	 ./configure
-	 make
-	 sudo make check
-	 sudo make install
+ wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.52.tar.gz
+ tar zxvf bcm2835*
+ cd bcm2835*
+ ./configure
+ make
+ sudo make check
+ sudo make install
 ```
-2. Build and run this LoRa app
+
+2. Set device EUI, join EUI and App key in lora source.
+```
+// Set DevEUI
+static const u1_t PROGMEM DEVEUI[8] = { 0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01 };
+
+// Join EUI (App EUI)
+static const u1_t PROGMEM APPEUI[8] = { 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
+// App Key
+static const u1_t PROGMEM APPKEY[16] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x12 };
+```
+
+3. Build and run this LoRa app
 ```
 sudo make
 sudo ./lora
